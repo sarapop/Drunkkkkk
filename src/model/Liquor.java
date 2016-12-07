@@ -1,5 +1,5 @@
 package model;
 
-public class Liquor {
+public class Liquor implements IRenderable{
 
 }

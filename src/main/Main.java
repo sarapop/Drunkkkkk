@@ -23,6 +23,7 @@ public class Main extends Application {
 	private Scene startScene;
 	private Scene overScene;
 	private Scene gameScene;
+	private GameManager gameManage;
 	private GameScreen gameScreen;
 	private GameOverScreen overScreen;
 	private StartScreen startScreen;
@@ -44,6 +45,7 @@ public class Main extends Application {
 	}
 	public static void main(String[] args) {
 		Application.launch(args);
+		
 	}
 	
 }
