@@ -1,9 +1,9 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
-import lib.IRenderable;
+import lib.IRenderableObject;
 
-public class Liquor implements IRenderable{
+public class Liquor implements IRenderableObject{
 
 	@Override
 	public boolean isVisible() {

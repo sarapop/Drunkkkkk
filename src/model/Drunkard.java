@@ -1,9 +1,9 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
-import lib.IRenderable;
+import lib.IRenderableObject;
 
-public class Drunkard implements IRenderable {
+public class Drunkard implements IRenderableObject {
 
 	@Override
 	public boolean isVisible() {

@@ -1,9 +1,9 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
-import lib.IRenderable;
+import lib.IRenderableObject;
 
-public class Waste implements IRenderable {
+public class Waste implements IRenderableObject {
 
 	@Override
 	public boolean isVisible() {
