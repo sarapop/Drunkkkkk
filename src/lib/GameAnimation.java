@@ -13,7 +13,6 @@ public class GameAnimation implements IRenderableObject {
 	private boolean visible = false, playing = false;
 
 	public GameAnimation(Image shootanim, int frameCount, int frameDelay) {
-		/* fill code */
 		this.frameCount = frameCount;
 		this.frameDelay = frameDelay;
 		this.image = shootanim;

@@ -15,9 +15,6 @@ public class DrawingUtility {
 	protected static final Image liquor = getImage("img/liquor.png");
 	protected static final Image waste = getImage("img/waste.png");
 
-	protected static final double transcluentWhite = 0.7;
-	protected static final double opaque = 1;
-
 	private static Image getImage(String directory) {
 		try {
 			return new Image(ClassLoader.getSystemResource(directory).toString());
@@ -26,7 +23,7 @@ public class DrawingUtility {
 		}
 	}
 
-	public static void drawShootableObject(GraphicsContext gc, int x, int y, int radius, String name) {
+	public static void drawObject(GraphicsContext gc, int x, int y, int radius, String name) {
 		switch (name) {
 			case "drunkard" : gc.drawImage(drunkard, x-15, y-15);
 				break;
@@ -39,11 +36,11 @@ public class DrawingUtility {
 
 	public static void drawStatusBar(GraphicsContext gc, int score, boolean pause) {
 		gc.setFill(Color.BLACK);
-		gc.fillRect(0, 0, ConfigurableOption.screenWidth, 40);
+		gc.fillRect(0, 0, 800, 40);
 		gc.setFont(standardFont);
 		
 		gc.setFill(Color.WHITE);
-		gc.fillText("SCORE : " + score, (ConfigurableOption.screenWidth/2)+30 , 35);
+		gc.fillText("SCORE : " + score, 430 , 35);
 	}
 
 }

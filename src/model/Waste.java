@@ -3,7 +3,11 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import lib.IRenderableObject;
 
-public class Waste implements IRenderableObject {
+public class Waste extends TargetObject implements IRenderableObject {
+
+	public Waste(int movingDuration, int zCounter) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public boolean isVisible() {

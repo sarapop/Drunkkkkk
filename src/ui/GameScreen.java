@@ -8,10 +8,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import lib.ConfigurableOption;
 import lib.IGameLogic;
-import lib.MainLogic;
 import lib.IRenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
+import lib.MainLogic;
 
 public class GameScreen extends StackPane{
 	private IGameLogic mainLogic;

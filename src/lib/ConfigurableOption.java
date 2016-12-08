@@ -1,13 +1,12 @@
 package lib;
 
 public class ConfigurableOption {
-	
-	 public static int screenWidth;
-	 public static int screenHeight;
-	 public static int timelimit;
-	 public static int objectCreationMinDelay;
-	 public static int objectCreationMaxDelay;
-	 public static int objectMinDuration;
-	 public static int objectMaxDuration;
+
+	public static int objectCreationMinDelay = 100;
+	public static int objectCreationMaxDelay = 200;
+	public static int objectMinDuration = 200;
+	public static int objectMaxDuration = 700;
+	public static int screenHeight = 600;
+	public static int screenWidth = 800;
 
 }

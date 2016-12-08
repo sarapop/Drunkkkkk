@@ -3,7 +3,6 @@ package main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import logic.GameManager;
 import ui.GameOverScreen;
 import ui.GameScreen;
 import ui.StartScreen;
@@ -18,11 +17,12 @@ public class Main extends Application {
 	private Scene startScene;
 	private Scene overScene;
 	private Scene gameScene;
-	private GameManager gameManage;
 	private GameScreen gameScreen;
 	private GameOverScreen overScreen;
 	private StartScreen startScreen;
+	private boolean isStartSceneShown;
 	private boolean isGameSceneShown;
+	private boolean isoverSceneShown;
 	private MainLogic gameLogic;
 	
 	@Override
@@ -44,6 +44,7 @@ public class Main extends Application {
 		
 		gameScreen = new GameScreen(gameLogic);
 		this.gameScene = new Scene(gameScreen);
+		this.overScene = new Scene(overScreen);
 		gameScreen.requestFocusForCanvas();
 		this.primaryStage.setScene(this.startScene);
 		this.resizeStage();
@@ -55,14 +56,26 @@ public class Main extends Application {
 		Application.launch(args);
 	}
 	
-	public synchronized void toggleScene(){
-		if (!this.isGameSceneShown){
+	public synchronized void toggleScene() {
+		if (this.isStartSceneShown) {
 			this.gameLogic.onStart();
 			GameloopUtility.runGameLoop(gameLogic);
 			this.primaryStage.setScene(gameScene);
 			System.out.println("To Game Screen");
+			this.isGameSceneShown = !this.isGameSceneShown;
+			this.isStartSceneShown = !this.isStartSceneShown;
+		} else if (this.isGameSceneShown) {
+			this.gameLogic.onExit();
+			this.primaryStage.setScene(overScene);
+			System.out.println("To Over Screen");
+			this.isGameSceneShown = !this.isGameSceneShown;
+			this.isoverSceneShown = !this.isoverSceneShown;
+		} else if (this.isoverSceneShown) {
+			this.primaryStage.setScene(startScene);
+			System.out.println("To Start Screen");
+			this.isStartSceneShown = !this.isStartSceneShown;
+			this.isoverSceneShown = !this.isoverSceneShown;
 		}
-		this.isGameSceneShown = !this.isGameSceneShown;
 	}
 	
 	public void resizeStage() {
