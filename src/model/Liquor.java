@@ -1,11 +1,13 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
+import lib.DrawingUtility;
 import lib.IRenderableObject;
 
 public class Liquor extends TargetObject implements IRenderableObject{
 
-	public Liquor(int movingDuration, int zCounter) {
+	public Liquor(int z, int movingDuration) {
+		super(z, movingDuration);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -24,12 +26,7 @@ public class Liquor extends TargetObject implements IRenderableObject{
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	public void ungrab() {
-		// TODO Auto-generated method stub
-		
+		DrawingUtility.drawObject(gc, x, y, "liquor");
 	}
 
 }

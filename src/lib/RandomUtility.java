@@ -2,9 +2,9 @@ package lib;
 
 public class RandomUtility {
 
-	public static int random(int objectCreationMinDelay, int objectCreationMaxDelay) {
+	public static int random(int start, int end) {
 		// TODO Auto-generated method stub
-		return 0;
+		return start + (int)(Math.random() * (end - start + 1));
 	}
 
 }

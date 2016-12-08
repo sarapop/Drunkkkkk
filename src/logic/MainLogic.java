@@ -1,9 +1,14 @@
-package lib;
+package logic;
 
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.input.KeyCode;
 import lib.ConfigurableOption;
+import lib.GameAnimation;
+import lib.GameBackground;
+import lib.IRenderableHolder;
+import lib.IRenderableObject;
+import lib.InputUtility;
 import lib.RandomUtility;
 import model.TargetObject;
 import model.Drunkard;
@@ -52,14 +57,7 @@ public class MainLogic implements IGameLogic {
 		createTarget();
 			
 		triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
-		TargetObject grabbedObject = null;
 			
-		for (TargetObject obj : onScreenObject) {
-			if (obj instanceof Liquor && (grabbedObject != obj)) {
-				((Liquor)obj).ungrab();
-			}
-			obj.move();
-		}
 		for (GameAnimation obj : onScreenAnimation) {
 			obj.updateAnimation();
 		}

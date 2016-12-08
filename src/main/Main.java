@@ -8,11 +8,12 @@ import ui.GameScreen;
 import ui.StartScreen;
 import javafx.stage.WindowEvent;
 import lib.GameloopUtility;
-import lib.MainLogic;
+import logic.MainLogic;
 import javafx.event.EventHandler;
 
 public class Main extends Application {
 	
+	public static Main instance;
 	private Stage primaryStage;
 	private Scene startScene;
 	private Scene overScene;
@@ -28,6 +29,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
+		instance = this;
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle(""); //What should we name this game *^*
 		this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
