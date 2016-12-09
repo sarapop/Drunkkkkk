@@ -8,6 +8,7 @@ import lib.IRenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
 import lib.RandomUtility;
+import main.Main;
 import model.TargetObject;
 import model.Waste;
 import model.Drunkard;
@@ -41,12 +42,32 @@ public class MainLogic {
 		}
 
 		createTarget();
+		
+		if (game_end) {
+			Main.instance.toggleScene();
+		}
 
 		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
 		if (triggerKey) {
-			player.setPosition(player.getPosition() * -1);
+			if (player.getPosition() == 0) {
+				player.setPosition(1);
+			} else if (player.getPosition() == 1) {
+				player.setPosition(0);
+			}
+			
+			player.setX(player.getPosition());
+		}
+		
+		TargetObject target = null;
+		target = getObject();
+		if (target instanceof Liquor) {
+			((Liquor) target).collect(player);
+		} else if (target instanceof Waste) {
+			((Waste) target).crash(player);
 		}
 
+		
+		
 		for (int i = onScreenObject.size() - 1; i >= 0; i--) {
 			if (onScreenObject.get(i).isDestroyed) {
 				onScreenObject.remove(i);
@@ -55,8 +76,22 @@ public class MainLogic {
 
 		for (TargetObject obj : onScreenObject) {
 			obj.move();
+			if (obj instanceof Liquor) {
+				obj.outOfReached(player);
+			}
 		}
 
+	}
+
+	private TargetObject getObject() {
+		TargetObject obj = null;
+		for (TargetObject target : onScreenObject) {
+			if (player.isSamePosition(target)) {
+				obj = target;
+			}
+
+		}
+		return obj;
 	}
 
 	public synchronized void onExit() {

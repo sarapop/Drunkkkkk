@@ -18,7 +18,7 @@ public class GameScreen extends StackPane{
 	
 	public GameScreen(MainLogic mainLogic){
 		super();
-		this.canvas = new Canvas(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight);
+		this.canvas = new Canvas(ConfigurableOption.screenWidth/2, ConfigurableOption.screenHeight);
 		
 		this.mainLogic = mainLogic;
 		this.getChildren().add(this.canvas);
@@ -41,7 +41,7 @@ public class GameScreen extends StackPane{
 	}
 	
 	public void applyResize(){
-		this.canvas.setWidth(ConfigurableOption.screenWidth);
+		this.canvas.setWidth(ConfigurableOption.screenWidth/2);
 		this.canvas.setHeight(ConfigurableOption.screenHeight);
 	}
 

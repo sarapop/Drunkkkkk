@@ -47,9 +47,11 @@ public class Main extends Application {
 		this.startScreen = new StartScreen();
 		this.startScene = new Scene(startScreen);
 		
-		gameScreen = new GameScreen(gameLogic);
+		this.gameScreen = new GameScreen(gameLogic);
 		this.gameScene = new Scene(gameScreen);
-		//this.overScene = new Scene(overScreen);
+		
+		this.overScreen = new GameOverScreen();
+		this.overScene = new Scene(overScreen);
 		gameScreen.requestFocusForCanvas();
 		this.primaryStage.setScene(this.startScene);
 		this.resizeStage();
@@ -86,7 +88,7 @@ public class Main extends Application {
 	public void resizeStage() {
 		this.startScreen.applyResize();
 		this.gameScreen.applyResize();
-	//	this.overScreen.applyResize();
+		this.overScreen.applyResize();
 		this.primaryStage.sizeToScene();
 	}
 	

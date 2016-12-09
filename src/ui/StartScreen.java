@@ -49,7 +49,6 @@ public class StartScreen extends Pane {
 		// TODO Auto-generated method stub
 		GraphicsContext gc = this.canvas.getGraphicsContext2D();
 		DrawingUtility.drawObject(gc, 0, 0, "startscreen");
-		//DrawingUtility.drawObject(gc, 340, 410, "startbutton");
 	}
 	
 	public void requestFocusForCanvas(){

@@ -7,14 +7,15 @@ import lib.IRenderableObject;
 
 public class Drunkard implements IRenderableObject {
 
-	private int x,y;
-	private int position = -1;
+	private int x;
+	private static final int y = ConfigurableOption.screenHeight - 175;
+	private int position = 0;
 	private int score = 0;
 	private boolean dead = false; 
 	
 	public Drunkard() {
 		// TODO Auto-generated constructor stub
-		
+		this.setX(position);
 	}
 	
 	@Override
@@ -27,7 +28,7 @@ public class Drunkard implements IRenderableObject {
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
 		DrawingUtility.drawStatusBar(gc, score);
-		DrawingUtility.drawObject(gc, ConfigurableOption.screenWidth/4 - 65, ConfigurableOption.screenHeight - 175, "drunkard");
+		DrawingUtility.drawObject(gc, this.x, Drunkard.y, "drunkard");
 	}
 
 	public int getScore() {
@@ -48,7 +49,7 @@ public class Drunkard implements IRenderableObject {
 	}
 	
 	public boolean isSamePosition(TargetObject other) {
-		if (this.x == other.x && this.y == other.y) {
+		if (this.position == other.position && Drunkard.y == other.y + other.h) {
 			return true;
 		} else {
 			return false;
@@ -73,11 +74,11 @@ public class Drunkard implements IRenderableObject {
 	
 	public void setX(int position) {
 		switch (position) {
-			case (-1) : this.x = ConfigurableOption.screenWidth/4 - 65;
+			case (0) : this.x = ConfigurableOption.screenWidth/8 - 65/2;
 				break;
-			case (1) : this.x = ConfigurableOption.screenWidth/4 - 65 + ConfigurableOption.screenWidth/2;
+			case (1) : this.x = ConfigurableOption.screenWidth/8 - 65/2 + ConfigurableOption.screenWidth/4;
 				break;
-			default : this.x = ConfigurableOption.screenWidth/4 - 65;
+			default : this.x = ConfigurableOption.screenWidth/8 - 65/2;
 				break;
 		}
 	}

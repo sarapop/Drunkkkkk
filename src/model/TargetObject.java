@@ -1,24 +1,31 @@
 package model;
 
-import lib.RandomUtility;
 import lib.ConfigurableOption;
 import lib.IRenderableObject;
+import lib.RandomUtility;
 
 public abstract class TargetObject implements IRenderableObject {
 
 	public boolean isDestroyed = false;
 	protected int x;
 	protected int y;
+	protected int h;
+	protected int w;
+	protected int position;
 
 	public TargetObject() {
-		int random = RandomUtility.random(-1, 1);
-		switch (random) {
-		case (-1) : this.x = ConfigurableOption.screenWidth/4 - 65;
+		y = 0;
+		position = RandomUtility.random(0, 1);
+		switch (position) {
+		case (0) : this.x = ConfigurableOption.screenWidth/8 - this.w/2;
 			break;
-		case (1) : this.x = ConfigurableOption.screenWidth/4 - 65 + ConfigurableOption.screenWidth/2;
+		case (1) : this.x = ConfigurableOption.screenWidth/8 - this.w/2 + ConfigurableOption.screenWidth/4;
 			break;
 		}
-		y = 0;
+	}
+	
+	public int getPosition() {
+		return position;
 	}
 
 	public void move() {
@@ -33,17 +40,15 @@ public abstract class TargetObject implements IRenderableObject {
 		}
 
 	}
-
-	public boolean contains(int x, int y) {
-		// TODO Auto-generated method stub
-		return Math.hypot(x - this.x, y - this.y) <= 6;
-	}
-
-	public boolean isSamePosition(Drunkard other) {
-		if (this.x == other.getX() && this.y == other.getY()) {
-			return true;
-		} else {
-			return false;
+	
+	public void outOfReached(Drunkard player) {
+		if (isDestroyed)
+			return;
+		if (this.y + this.h == ConfigurableOption.screenHeight) {
+			//AudioUtility.playSound("no");
+			isDestroyed = true;
+			player.setDead(true);
+			return;
 		}
 	}
 

@@ -11,6 +11,8 @@ public class Liquor extends TargetObject implements IRenderableObject {
 	public Liquor() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.w = 57;
+		this.h = 90;
 	}
 
 	@Override
@@ -28,21 +30,10 @@ public class Liquor extends TargetObject implements IRenderableObject {
 	public void collect(Drunkard player) {
 		if (isDestroyed)
 			return;
-		if (this.isSamePosition(player)) {
-			AudioUtility.playSound("collect");
+		if (player.isSamePosition(this)) {
+			//AudioUtility.playSound("collect");
 			isDestroyed = true;
 			player.increaseScore(10);
-			return;
-		}
-	}
-	
-	public void outOfReached(Drunkard player) {
-		if (isDestroyed)
-			return;
-		if (this.y == ConfigurableOption.screenHeight) {
-			AudioUtility.playSound("no");
-			isDestroyed = true;
-			player.setDead(true);
 			return;
 		}
 	}

@@ -10,6 +10,8 @@ public class Waste extends TargetObject implements IRenderableObject {
 	public Waste() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.w = 78;
+		this.h = 25;
 	}
 
 	@Override
@@ -27,8 +29,8 @@ public class Waste extends TargetObject implements IRenderableObject {
 	public void crash(Drunkard player) {
 		if (isDestroyed)
 			return;
-		if (this.isSamePosition(player)) {
-			AudioUtility.playSound("crash");
+		if (player.isSamePosition(this)) {
+			//AudioUtility.playSound("crash");
 			isDestroyed = true;
 			player.setDead(true);
 			return;

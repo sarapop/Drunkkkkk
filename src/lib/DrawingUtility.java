@@ -25,7 +25,7 @@ public class DrawingUtility {
 		}
 	}
 
-	public static void drawObject(GraphicsContext gc, int x, int y, String name) {
+	public static void drawObject(GraphicsContext gc, double x, double y, String name) {
 		switch (name) {
 			case "drunkard" : gc.drawImage(drunkard, x, y);
 				break;
