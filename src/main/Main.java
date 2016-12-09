@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ui.GameOverScreen;
 import ui.GameScreen;
@@ -21,9 +22,6 @@ public class Main extends Application {
 	private GameScreen gameScreen;
 	private GameOverScreen overScreen;
 	private StartScreen startScreen;
-	private boolean isStartSceneShown = true;
-	private boolean isGameSceneShown = false;
-	private boolean isoverSceneShown = false;
 	private MainLogic gameLogic;
 	
 	@Override
@@ -32,6 +30,7 @@ public class Main extends Application {
 		instance = this;
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Let's Get Drunk");
+		//this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("img/icon.png").toString()));
 		this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 
 			@Override
@@ -63,25 +62,19 @@ public class Main extends Application {
 		Application.launch(args);
 	}
 	
-	public synchronized void toggleScene() {
-		if (this.isStartSceneShown) {
+	public synchronized void changeSceneTo(String scene) {
+		if (scene == "gameScene") {
 			this.gameLogic.onStart();
 			GameloopUtility.runGameLoop(gameLogic);
 			this.primaryStage.setScene(gameScene);
 			System.out.println("To Game Screen");
-			this.isGameSceneShown = !this.isGameSceneShown;
-			this.isStartSceneShown = !this.isStartSceneShown;
-		} else if (this.isGameSceneShown) {
+		} else if (scene == "overScene") {
 			this.gameLogic.onExit();
 			this.primaryStage.setScene(overScene);
 			System.out.println("To Over Screen");
-			this.isGameSceneShown = !this.isGameSceneShown;
-			this.isoverSceneShown = !this.isoverSceneShown;
-		} else if (this.isoverSceneShown) {
+		} else if (scene == "startScene") {
 			this.primaryStage.setScene(startScene);
 			System.out.println("To Start Screen");
-			this.isStartSceneShown = !this.isStartSceneShown;
-			this.isoverSceneShown = !this.isoverSceneShown;
 		}
 	}
 	

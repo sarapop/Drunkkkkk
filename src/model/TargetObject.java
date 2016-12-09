@@ -6,20 +6,20 @@ import lib.RandomUtility;
 
 public abstract class TargetObject implements IRenderableObject {
 
-	public boolean isDestroyed = false;
+	public boolean exist = true;
 	protected int x;
 	protected int y;
-	protected int h;
-	protected int w;
+	protected int height;
+	protected int width;
 	protected int position;
 
 	public TargetObject() {
 		y = 0;
 		position = RandomUtility.random(0, 1);
 		switch (position) {
-		case (0) : this.x = ConfigurableOption.screenWidth/8 - this.w/2;
+		case (0) : this.x = ConfigurableOption.screenWidth/8 - this.width/2;
 			break;
-		case (1) : this.x = ConfigurableOption.screenWidth/8 - this.w/2 + ConfigurableOption.screenWidth/4;
+		case (1) : this.x = ConfigurableOption.screenWidth/8 - this.width/2 + ConfigurableOption.screenWidth/4;
 			break;
 		}
 	}
@@ -30,10 +30,10 @@ public abstract class TargetObject implements IRenderableObject {
 
 	public void move() {
 		// TODO Auto-generated method stub
-		if (isDestroyed)
+		if (!exist)
 			return;
 		if (y > ConfigurableOption.screenHeight) {
-			isDestroyed = true;
+			exist = false;
 			return;
 		} else {
 			y++;
@@ -42,14 +42,18 @@ public abstract class TargetObject implements IRenderableObject {
 	}
 	
 	public void outOfReached(Drunkard player) {
-		if (isDestroyed)
+		if (!exist)
 			return;
-		if (this.y + this.h == ConfigurableOption.screenHeight) {
+		if (this.y + this.height == ConfigurableOption.screenHeight) {
 			//AudioUtility.playSound("no");
-			isDestroyed = true;
-			player.setDead(true);
+			exist = false;
+			player.setExist(false);
 			return;
 		}
+	}
+	
+	public boolean exist() {
+		return exist;
 	}
 
 }

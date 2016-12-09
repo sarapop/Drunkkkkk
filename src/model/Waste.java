@@ -10,14 +10,8 @@ public class Waste extends TargetObject implements IRenderableObject {
 	public Waste() {
 		super();
 		// TODO Auto-generated constructor stub
-		this.w = 78;
-		this.h = 25;
-	}
-
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
+		this.width = 78;
+		this.height = 25;
 	}
 
 	@Override
@@ -27,12 +21,12 @@ public class Waste extends TargetObject implements IRenderableObject {
 	}
 	
 	public void crash(Drunkard player) {
-		if (isDestroyed)
+		if (!exist)
 			return;
 		if (player.isSamePosition(this)) {
 			//AudioUtility.playSound("crash");
-			isDestroyed = true;
-			player.setDead(true);
+			exist = false;
+			player.setExist(false);
 			return;
 		}
 	}

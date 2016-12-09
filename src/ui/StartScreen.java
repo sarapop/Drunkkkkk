@@ -31,7 +31,7 @@ public class StartScreen extends Pane {
 			@Override
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
-				Main.instance.toggleScene();
+				Main.instance.changeSceneTo("gameScene");;
 			}
 		});
         button.setLayoutX(340);
@@ -49,10 +49,6 @@ public class StartScreen extends Pane {
 		// TODO Auto-generated method stub
 		GraphicsContext gc = this.canvas.getGraphicsContext2D();
 		DrawingUtility.drawObject(gc, 0, 0, "startscreen");
-	}
-	
-	public void requestFocusForCanvas(){
-		this.requestFocus();
 	}
 
 }

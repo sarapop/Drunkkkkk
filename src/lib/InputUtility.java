@@ -34,6 +34,7 @@ public class InputUtility {
 
 	public static void postUpdate() {
 		keyTriggered.clear();
+		keyPressed.clear();
 	}
 
 }

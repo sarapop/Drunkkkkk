@@ -17,7 +17,7 @@ import model.Liquor;
 public class MainLogic {
 
 	private Drunkard player;
-	private List<TargetObject> onScreenObject = new ArrayList();
+	private List<TargetObject> onScreenObject = new ArrayList<TargetObject>();
 	private boolean game_end;
 	private boolean readyToRender;
 	private int nextObjectCreationDelay;
@@ -33,31 +33,36 @@ public class MainLogic {
 
 	public void logicUpdate() {
 		// TODO Auto-generated method stub
-		if (game_end)
-			return;
+		if (game_end) {
+			Main.instance.changeSceneTo("overScene");
+		}
 
-		if (player.isDead()) {
+		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.ENTER);
+		if (triggerKey) {
+			player.setPause(!player.isPause());
+		}
+		if (player.isPause()) {
+			return;
+		}
+
+		if (!player.exist()) {
 			game_end = true;
 			return;
 		}
 
 		createTarget();
-		
-		if (game_end) {
-			Main.instance.toggleScene();
-		}
 
-		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
+		triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
 		if (triggerKey) {
 			if (player.getPosition() == 0) {
 				player.setPosition(1);
 			} else if (player.getPosition() == 1) {
 				player.setPosition(0);
 			}
-			
+
 			player.setX(player.getPosition());
 		}
-		
+
 		TargetObject target = null;
 		target = getObject();
 		if (target instanceof Liquor) {
@@ -66,10 +71,8 @@ public class MainLogic {
 			((Waste) target).crash(player);
 		}
 
-		
-		
 		for (int i = onScreenObject.size() - 1; i >= 0; i--) {
-			if (onScreenObject.get(i).isDestroyed) {
+			if (!onScreenObject.get(i).exist()) {
 				onScreenObject.remove(i);
 			}
 		}
@@ -124,4 +127,7 @@ public class MainLogic {
 		}
 	}
 
+	public boolean isReadyToRender() {
+		return readyToRender;
+	}
 }
