@@ -3,26 +3,22 @@ package model;
 import lib.RandomUtility;
 import lib.ConfigurableOption;
 import lib.IRenderableObject;
-import lib.MotionUtility;
 
 public abstract class TargetObject implements IRenderableObject {
 
 	public boolean isDestroyed = false;
 	protected int x;
 	protected int y;
-	protected int[] movingParameter;
 
 	public TargetObject() {
-
-		movingParameter = new int[3];
-		
-		if (RandomUtility.random(0, 1) == 1) {
-			int a = movingParameter[1];
-			movingParameter[1] = movingParameter[2];
-			movingParameter[2] = a;
+		int random = RandomUtility.random(-1, 1);
+		switch (random) {
+		case (-1) : this.x = ConfigurableOption.screenWidth/4 - 65;
+			break;
+		case (1) : this.x = ConfigurableOption.screenWidth/4 - 65 + ConfigurableOption.screenWidth/2;
+			break;
 		}
-		x = movingParameter[0];
-		y = movingParameter[1];
+		y = 0;
 	}
 
 	public void move() {
@@ -32,15 +28,10 @@ public abstract class TargetObject implements IRenderableObject {
 		if (y > ConfigurableOption.screenHeight) {
 			isDestroyed = true;
 			return;
+		} else {
+			y++;
 		}
 
-		int[] coord;
-		coord = MotionUtility.linearMotion(movingParameter[0], movingParameter[1], movingParameter[2],
-				ConfigurableOption.screenHeight, y);
-
-		x = coord[0];
-		y = coord[1];
-		y += 1;
 	}
 
 	public boolean contains(int x, int y) {
@@ -48,8 +39,12 @@ public abstract class TargetObject implements IRenderableObject {
 		return Math.hypot(x - this.x, y - this.y) <= 6;
 	}
 
-	public boolean isVisible() {
-		return !isDestroyed;
+	public boolean isSamePosition(Drunkard other) {
+		if (this.x == other.getX() && this.y == other.getY()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

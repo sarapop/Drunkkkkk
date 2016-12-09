@@ -13,7 +13,7 @@ public class DrawingUtility {
 	protected static final Image bg = getImage("img/bg.png");
 	protected static final Image overbg = getImage("img/overbg.png");
 	protected static final Image startscreen = getImage("img/startscreen.jpg");
-	protected static final Image drunkard = getImage("img/drunkard.png");
+	protected static final Image drunkard = getImage("img/drunkard.gif");
 	protected static final Image liquor = getImage("img/liquor.png");
 	protected static final Image waste = getImage("img/waste.png");
 
@@ -27,23 +27,23 @@ public class DrawingUtility {
 
 	public static void drawObject(GraphicsContext gc, int x, int y, String name) {
 		switch (name) {
-			case "drunkard" : gc.drawImage(drunkard, x, y-15);
+			case "drunkard" : gc.drawImage(drunkard, x, y);
 				break;
-			case "liquor" : gc.drawImage(liquor, x-15, y-15);
+			case "liquor" : gc.drawImage(liquor, x, y);
 				break;
-			case "waste" : gc.drawImage(waste, x-15, y-15);
+			case "waste" : gc.drawImage(waste, x, y);
 				break;
 			case "startscreen" : gc.drawImage(startscreen, x, y);
+				break;
+			case "bg" : gc.drawImage(bg, x, y);
+				break;
 		}
 	}
 
-	public static void drawStatusBar(GraphicsContext gc, int score, boolean pause) {
-		gc.setFill(Color.BLACK);
-		gc.fillRect(0, 0, 800, 40);
+	public static void drawStatusBar(GraphicsContext gc, int score) {		
 		gc.setFont(standardFont);
-		
 		gc.setFill(Color.WHITE);
-		gc.fillText("SCORE : " + score, 430 , 35);
+		gc.fillText("SCORE : " + score, 10 , 35);
 	}
 
 }

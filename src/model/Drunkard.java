@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
+import lib.ConfigurableOption;
 import lib.DrawingUtility;
 import lib.IRenderableObject;
 
@@ -9,14 +10,11 @@ public class Drunkard implements IRenderableObject {
 	private int x,y;
 	private int position = -1;
 	private int score = 0;
-	private boolean pause = false;
 	private boolean dead = false; 
 	
-	public Drunkard(int x, int y, int position) {
+	public Drunkard() {
 		// TODO Auto-generated constructor stub
-		this.x = x;
-		this.y = y;
-		this.position = position;
+		
 	}
 	
 	@Override
@@ -28,19 +26,10 @@ public class Drunkard implements IRenderableObject {
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		DrawingUtility.drawStatusBar(gc, score, pause);
+		DrawingUtility.drawStatusBar(gc, score);
+		DrawingUtility.drawObject(gc, ConfigurableOption.screenWidth/4 - 65, ConfigurableOption.screenHeight - 175, "drunkard");
 	}
 
-	public boolean isPause() {
-		// TODO Auto-generated method stub
-		return pause;
-	}
-
-	public void setPause(boolean pause) {
-		// TODO Auto-generated method stub
-		this.pause = pause;
-	}
-	
 	public int getScore() {
 		return score;
 	}
@@ -80,5 +69,16 @@ public class Drunkard implements IRenderableObject {
 	
 	public void setPosition(int position) {
 		this.position = position;
+	}
+	
+	public void setX(int position) {
+		switch (position) {
+			case (-1) : this.x = ConfigurableOption.screenWidth/4 - 65;
+				break;
+			case (1) : this.x = ConfigurableOption.screenWidth/4 - 65 + ConfigurableOption.screenWidth/2;
+				break;
+			default : this.x = ConfigurableOption.screenWidth/4 - 65;
+				break;
+		}
 	}
 }

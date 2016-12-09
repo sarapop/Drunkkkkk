@@ -6,7 +6,8 @@ import main.Main;
 
 public class GameloopUtility {
 	
-	public static final int TICK_PER_SECONDS = 60;
+	private static final int REFRESH_DELAY = 10;
+	public static final int TICK_PER_SECONDS = 100;
 	public static AnimationTimer animationTimer;
 
 	public static void runGameLoop(MainLogic gameLogic) {

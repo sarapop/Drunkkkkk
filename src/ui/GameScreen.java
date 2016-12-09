@@ -5,8 +5,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import lib.ConfigurableOption;
+import lib.DrawingUtility;
 import lib.IRenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
@@ -22,6 +22,7 @@ public class GameScreen extends StackPane{
 		
 		this.mainLogic = mainLogic;
 		this.getChildren().add(this.canvas);
+		this.paintComponenet();
 		addListener();
 	}
 	
@@ -29,9 +30,7 @@ public class GameScreen extends StackPane{
 		((MainLogic) mainLogic).setIRenderableHolderList();
 		
 		GraphicsContext gc = this.canvas.getGraphicsContext2D();
-		gc.setFill(Color.BLACK);
-		gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-		gc.fillRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+		DrawingUtility.drawObject(gc, 0, 0, "bg");
 		for(IRenderableObject renderable : IRenderableHolder.getInstance().getEntities()){
 			renderable.render(gc);
 		}

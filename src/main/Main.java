@@ -21,9 +21,9 @@ public class Main extends Application {
 	private GameScreen gameScreen;
 	private GameOverScreen overScreen;
 	private StartScreen startScreen;
-	private boolean isStartSceneShown;
-	private boolean isGameSceneShown;
-	private boolean isoverSceneShown;
+	private boolean isStartSceneShown = true;
+	private boolean isGameSceneShown = false;
+	private boolean isoverSceneShown = false;
 	private MainLogic gameLogic;
 	
 	@Override
@@ -42,15 +42,15 @@ public class Main extends Application {
 			
 		});
 		
-		//this.gameLogic = new MainLogic();
+		this.gameLogic = new MainLogic();
 		
 		this.startScreen = new StartScreen();
 		this.startScene = new Scene(startScreen);
 		
-		//gameScreen = new GameScreen(gameLogic);
-		//this.gameScene = new Scene(gameScreen);
+		gameScreen = new GameScreen(gameLogic);
+		this.gameScene = new Scene(gameScreen);
 		//this.overScene = new Scene(overScreen);
-		//gameScreen.requestFocusForCanvas();
+		gameScreen.requestFocusForCanvas();
 		this.primaryStage.setScene(this.startScene);
 		this.resizeStage();
 		this.primaryStage.show();
@@ -85,8 +85,8 @@ public class Main extends Application {
 	
 	public void resizeStage() {
 		this.startScreen.applyResize();
-		//this.gameScreen.applyResize();
-		//this.overScreen.applyResize();
+		this.gameScreen.applyResize();
+	//	this.overScreen.applyResize();
 		this.primaryStage.sizeToScene();
 	}
 	
