@@ -10,7 +10,9 @@ public class DrawingUtility {
 	
 	protected static final Font standardFont = Font.font("Tahoma", FontWeight.BOLD, 30);
 	protected static final Font smallFont = Font.font("Tahoma", FontWeight.MEDIUM, 9);
-	protected static final Image bg = getImage("img/bg.jpg");
+	protected static final Image bg = getImage("img/bg.png");
+	protected static final Image overbg = getImage("img/overbg.png");
+	protected static final Image startscreen = getImage("img/startscreen.jpg");
 	protected static final Image drunkard = getImage("img/drunkard.png");
 	protected static final Image liquor = getImage("img/liquor.png");
 	protected static final Image waste = getImage("img/waste.png");
@@ -25,12 +27,13 @@ public class DrawingUtility {
 
 	public static void drawObject(GraphicsContext gc, int x, int y, String name) {
 		switch (name) {
-			case "drunkard" : gc.drawImage(drunkard, x-15, y-15);
+			case "drunkard" : gc.drawImage(drunkard, x, y-15);
 				break;
 			case "liquor" : gc.drawImage(liquor, x-15, y-15);
 				break;
 			case "waste" : gc.drawImage(waste, x-15, y-15);
 				break;
+			case "startscreen" : gc.drawImage(startscreen, x, y);
 		}
 	}
 

@@ -70,11 +70,6 @@ public class GameAnimation implements IRenderableObject {
 	}
 
 	@Override
-	public int getZ() {
-		return Integer.MAX_VALUE-1;
-	}
-
-	@Override
 	public void render(GraphicsContext gc) {
 		if (visible && image != null) {
 			WritableImage subImage= new WritableImage(image.getPixelReader(), currentFrame*frameWidth, 0, frameWidth, frameHeight);

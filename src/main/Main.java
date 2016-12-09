@@ -31,7 +31,7 @@ public class Main extends Application {
 		// TODO Auto-generated method stub
 		instance = this;
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle(""); //What should we name this game *^*
+		this.primaryStage.setTitle("Let's Get Drunk");
 		this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 
 			@Override
@@ -42,12 +42,15 @@ public class Main extends Application {
 			
 		});
 		
-		this.gameLogic = new MainLogic();
+		//this.gameLogic = new MainLogic();
 		
-		gameScreen = new GameScreen(gameLogic);
-		this.gameScene = new Scene(gameScreen);
-		this.overScene = new Scene(overScreen);
-		gameScreen.requestFocusForCanvas();
+		this.startScreen = new StartScreen();
+		this.startScene = new Scene(startScreen);
+		
+		//gameScreen = new GameScreen(gameLogic);
+		//this.gameScene = new Scene(gameScreen);
+		//this.overScene = new Scene(overScreen);
+		//gameScreen.requestFocusForCanvas();
 		this.primaryStage.setScene(this.startScene);
 		this.resizeStage();
 		this.primaryStage.show();
@@ -82,13 +85,9 @@ public class Main extends Application {
 	
 	public void resizeStage() {
 		this.startScreen.applyResize();
-		this.gameScreen.applyResize();
-		this.overScreen.applyResize();
+		//this.gameScreen.applyResize();
+		//this.overScreen.applyResize();
 		this.primaryStage.sizeToScene();
-	}
-	
-	public void drawStartScreen() {
-		this.startScreen.paintComponenet();
 	}
 	
 	public void drawGameScreen() {

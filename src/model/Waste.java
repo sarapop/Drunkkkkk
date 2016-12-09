@@ -6,8 +6,8 @@ import lib.IRenderableObject;
 
 public class Waste extends TargetObject implements IRenderableObject {
 
-	public Waste(int z, int movingDuration) {
-		super(z, movingDuration);
+	public Waste() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -15,12 +15,6 @@ public class Waste extends TargetObject implements IRenderableObject {
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public int getZ() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override

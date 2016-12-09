@@ -11,11 +11,11 @@ import lib.IRenderableObject;
 import lib.InputUtility;
 import lib.RandomUtility;
 import model.TargetObject;
+import model.Waste;
 import model.Drunkard;
 import model.Liquor;
-import model.Waste;
 
-public class MainLogic implements IGameLogic {
+public class MainLogic {
 
 	private GameBackground background;
 	private Drunkard player;
@@ -23,10 +23,8 @@ public class MainLogic implements IGameLogic {
 	private List<GameAnimation> onScreenAnimation = new ArrayList();
 	private boolean game_end;
 	private boolean readyToRender;
-	private int zCounter;
 	private int nextObjectCreationDelay;
 
-	@Override
 	public synchronized void onStart() {
 		// TODO Auto-generated method stub
 		background = new GameBackground();
@@ -36,12 +34,11 @@ public class MainLogic implements IGameLogic {
 		readyToRender = true;
 	}
 
-	@Override
 	public void logicUpdate() {
 		// TODO Auto-generated method stub
 		if (game_end)
 			return;
-			boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.ENTER);
+		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.ENTER);
 		if (triggerKey) {
 			player.setPause(!player.isPause());
 		}
@@ -53,11 +50,14 @@ public class MainLogic implements IGameLogic {
 			game_end = true;
 			return;
 		}
-		
+
 		createTarget();
-			
+
 		triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
-			
+		if (triggerKey) {
+			player.setPosition(player.getPosition() * -1);
+		}
+
 		for (GameAnimation obj : onScreenAnimation) {
 			obj.updateAnimation();
 		}
@@ -67,13 +67,12 @@ public class MainLogic implements IGameLogic {
 			}
 		}
 		for (int i = onScreenAnimation.size() - 1; i >= 0; i--) {
-			if (!((GameAnimation)onScreenAnimation.get(i)).isVisible()) {
+			if (!((GameAnimation) onScreenAnimation.get(i)).isVisible()) {
 				onScreenAnimation.remove(i);
 			}
 		}
 	}
 
-	@Override
 	public synchronized void onExit() {
 		// TODO Auto-generated method stub
 		onScreenObject.clear();
@@ -84,17 +83,15 @@ public class MainLogic implements IGameLogic {
 		if (nextObjectCreationDelay > 0) {
 			nextObjectCreationDelay -= 1;
 		} else {
-			nextObjectCreationDelay = RandomUtility.random(ConfigurableOption.objectCreationMinDelay, 
-			ConfigurableOption.objectCreationMaxDelay);
-			int movingDuration = RandomUtility.random(ConfigurableOption.objectMinDuration, 
-			ConfigurableOption.objectMaxDuration);
-			onScreenObject.add(new Liquor(movingDuration, zCounter));
-			onScreenObject.add(new Waste(movingDuration, zCounter));
-			zCounter += 1;
-			if (zCounter == 2147483646) {
-				zCounter = -2147483647;
-			}
+			nextObjectCreationDelay = RandomUtility.random(ConfigurableOption.objectCreationMinDelay,
+					ConfigurableOption.objectCreationMaxDelay);
 		}
+
+		int targetType = RandomUtility.random(0, 1);
+		if (targetType == 0) {
+				onScreenObject.add(new Liquor());
+			} else
+				onScreenObject.add(new Waste());
 	}
 
 	public synchronized void setIRenderableHolderList() {
@@ -108,7 +105,6 @@ public class MainLogic implements IGameLogic {
 			}
 			IRenderableHolder.getInstance().add(player);
 			IRenderableHolder.getInstance().add(background);
-			IRenderableHolder.getInstance().sort();
 		}
 	}
 

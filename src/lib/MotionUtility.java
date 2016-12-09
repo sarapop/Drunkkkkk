@@ -2,11 +2,11 @@ package lib;
 
 public class MotionUtility {
 
-	public static int[] linearMotion(int startX,int startY,int endX,int endY,
-			int duration,int currentTick){
+	public static int[] linearMotion(int x,int startY,int endY,
+			int screenHeight,int currentY){
 		int[] currentPos = new int[2];
-		currentPos[0] = startX+(endX-startX)*currentTick/duration;
-		currentPos[1] = startY+(endY-startY)*currentTick/duration;
+		currentPos[0] = x;
+		currentPos[1] = startY+(endY-startY)*currentY/screenHeight;
 		return currentPos;
 	}
 

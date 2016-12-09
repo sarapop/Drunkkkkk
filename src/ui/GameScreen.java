@@ -10,14 +10,13 @@ import lib.ConfigurableOption;
 import lib.IRenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
-import logic.IGameLogic;
 import logic.MainLogic;
 
 public class GameScreen extends StackPane{
-	private IGameLogic mainLogic;
+	private MainLogic mainLogic;
 	private Canvas canvas;
 	
-	public GameScreen(IGameLogic mainLogic){
+	public GameScreen(MainLogic mainLogic){
 		super();
 		this.canvas = new Canvas(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight);
 		

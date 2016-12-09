@@ -1,6 +1,7 @@
 package model;
 
 import lib.RandomUtility;
+import lib.ConfigurableOption;
 import lib.IRenderableObject;
 import lib.MotionUtility;
 
@@ -9,24 +10,16 @@ public abstract class TargetObject implements IRenderableObject {
 	public boolean isDestroyed = false;
 	protected int x;
 	protected int y;
-	protected int z = 0;
 	protected int[] movingParameter;
-	protected int movingDuration;
-	protected int movingDurationCounter = 0;
 
-	public TargetObject(int z, int movingDuration) {
-		this.z = z;
-		this.movingDuration = movingDuration;
+	public TargetObject() {
 
-		movingParameter = new int[4];
+		movingParameter = new int[3];
 		
 		if (RandomUtility.random(0, 1) == 1) {
-			int a = movingParameter[0];
-			int b = movingParameter[1];
-			movingParameter[0] = movingParameter[2];
-			movingParameter[1] = movingParameter[3];
+			int a = movingParameter[1];
+			movingParameter[1] = movingParameter[2];
 			movingParameter[2] = a;
-			movingParameter[3] = b;
 		}
 		x = movingParameter[0];
 		y = movingParameter[1];
@@ -36,28 +29,23 @@ public abstract class TargetObject implements IRenderableObject {
 		// TODO Auto-generated method stub
 		if (isDestroyed)
 			return;
-		if (movingDurationCounter > movingDuration) {
+		if (y > ConfigurableOption.screenHeight) {
 			isDestroyed = true;
 			return;
 		}
 
 		int[] coord;
 		coord = MotionUtility.linearMotion(movingParameter[0], movingParameter[1], movingParameter[2],
-				movingParameter[3], movingDuration, movingDurationCounter);
+				ConfigurableOption.screenHeight, y);
 
 		x = coord[0];
 		y = coord[1];
-		movingDurationCounter += 1;
+		y += 1;
 	}
 
 	public boolean contains(int x, int y) {
 		// TODO Auto-generated method stub
 		return Math.hypot(x - this.x, y - this.y) <= 6;
-	}
-
-	public int getZ() {
-		// TODO Auto-generated method stub
-		return z;
 	}
 
 	public boolean isVisible() {
