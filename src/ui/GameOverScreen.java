@@ -6,7 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import lib.ConfigurableOption;
+import lib.GameProperties;
 import lib.DrawingUtility;
 import main.Main;
 
@@ -16,7 +16,7 @@ private Canvas canvas;
 	
 	public GameOverScreen (){
 		super();
-		this.canvas = new Canvas(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight);
+		this.canvas = new Canvas(GameProperties.screenWidth, GameProperties.screenHeight);
 		this.getChildren().add(this.canvas);
 		this.paintComponenet();   
 		Button button = new Button();
@@ -44,7 +44,7 @@ private Canvas canvas;
 
 	
 	public void applyResize(){
-		this.canvas.setWidth(ConfigurableOption.screenWidth);
-		this.canvas.setHeight(ConfigurableOption.screenHeight);
+		this.canvas.setWidth(GameProperties.screenWidth);
+		this.canvas.setHeight(GameProperties.screenHeight);
 	}
 }

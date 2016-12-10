@@ -3,7 +3,9 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.input.KeyCode;
-import lib.ConfigurableOption;
+import lib.AudioUtility;
+import lib.GameProperties;
+import lib.GameloopUtility;
 import lib.IRenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
@@ -25,8 +27,8 @@ public class MainLogic {
 	public synchronized void onStart() {
 		// TODO Auto-generated method stub
 		player = new Drunkard();
-		nextObjectCreationDelay = RandomUtility.random(ConfigurableOption.objectCreationMinDelay,
-				ConfigurableOption.objectCreationMaxDelay);
+		nextObjectCreationDelay = RandomUtility.random(GameProperties.objectCreationMinDelay,
+				GameProperties.objectCreationMaxDelay);
 		game_end = false;
 		readyToRender = true;
 	}
@@ -35,6 +37,7 @@ public class MainLogic {
 		// TODO Auto-generated method stub
 		if (game_end) {
 			Main.instance.changeSceneTo("overScene");
+			GameloopUtility.animationTimer.stop();
 		}
 
 		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.ENTER);
@@ -61,6 +64,7 @@ public class MainLogic {
 			}
 
 			player.setX(player.getPosition());
+			AudioUtility.playSound("move");
 		}
 
 		TargetObject target = null;
@@ -107,8 +111,8 @@ public class MainLogic {
 		if (nextObjectCreationDelay > 0) {
 			nextObjectCreationDelay -= 1;
 		} else {
-			nextObjectCreationDelay = RandomUtility.random(ConfigurableOption.objectCreationMinDelay,
-					ConfigurableOption.objectCreationMaxDelay);
+			nextObjectCreationDelay = RandomUtility.random(GameProperties.objectCreationMinDelay,
+					GameProperties.objectCreationMaxDelay);
 			int targetType = RandomUtility.random(0, 1);
 			if (targetType == 0) {
 				onScreenObject.add(new Liquor());

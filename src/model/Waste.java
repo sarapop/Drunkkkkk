@@ -12,6 +12,7 @@ public class Waste extends TargetObject implements IRenderableObject {
 		// TODO Auto-generated constructor stub
 		this.width = 78;
 		this.height = 25;
+		initializeX(this.width);
 	}
 
 	@Override
@@ -24,7 +25,7 @@ public class Waste extends TargetObject implements IRenderableObject {
 		if (!exist)
 			return;
 		if (player.isSamePosition(this)) {
-			//AudioUtility.playSound("crash");
+			AudioUtility.playSound("crash");
 			exist = false;
 			player.setExist(false);
 			return;

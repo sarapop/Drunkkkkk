@@ -8,6 +8,7 @@ import ui.GameOverScreen;
 import ui.GameScreen;
 import ui.StartScreen;
 import javafx.stage.WindowEvent;
+import lib.AudioUtility;
 import lib.GameloopUtility;
 import logic.MainLogic;
 import javafx.event.EventHandler;
@@ -45,16 +46,15 @@ public class Main extends Application {
 		
 		this.startScreen = new StartScreen();
 		this.startScene = new Scene(startScreen);
-		
 		this.gameScreen = new GameScreen(gameLogic);
 		this.gameScene = new Scene(gameScreen);
-		
 		this.overScreen = new GameOverScreen();
 		this.overScene = new Scene(overScreen);
 		gameScreen.requestFocusForCanvas();
 		this.primaryStage.setScene(this.startScene);
 		this.resizeStage();
 		this.primaryStage.show();
+		AudioUtility.playSound("start");
 		
 	}
 	
@@ -67,14 +67,15 @@ public class Main extends Application {
 			this.gameLogic.onStart();
 			GameloopUtility.runGameLoop(gameLogic);
 			this.primaryStage.setScene(gameScene);
-			System.out.println("To Game Screen");
+			AudioUtility.stopSound("start");
+			AudioUtility.playSound("game");
 		} else if (scene == "overScene") {
 			this.gameLogic.onExit();
 			this.primaryStage.setScene(overScene);
-			System.out.println("To Over Screen");
+			AudioUtility.stopSound("game");
 		} else if (scene == "startScene") {
 			this.primaryStage.setScene(startScene);
-			System.out.println("To Start Screen");
+			AudioUtility.playSound("start");
 		}
 	}
 	
@@ -87,10 +88,6 @@ public class Main extends Application {
 	
 	public void drawGameScreen() {
 		this.gameScreen.paintComponenet();
-	}
-	
-	public void drawOverScreen() {
-		this.overScreen.paintComponenet();
 	}
 }
 

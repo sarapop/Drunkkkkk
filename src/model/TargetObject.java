@@ -1,6 +1,7 @@
 package model;
 
-import lib.ConfigurableOption;
+import lib.AudioUtility;
+import lib.GameProperties;
 import lib.IRenderableObject;
 import lib.RandomUtility;
 
@@ -15,12 +16,15 @@ public abstract class TargetObject implements IRenderableObject {
 
 	public TargetObject() {
 		y = 0;
+	}
+	
+	public void initializeX(int width) {
 		position = RandomUtility.random(0, 1);
 		switch (position) {
-		case (0) : this.x = ConfigurableOption.screenWidth/8 - this.width/2;
-			break;
-		case (1) : this.x = ConfigurableOption.screenWidth/8 - this.width/2 + ConfigurableOption.screenWidth/4;
-			break;
+			case (0) : this.x = GameProperties.GameScreenWidth/4 - width/2;
+				break;
+			case (1) : this.x = GameProperties.GameScreenWidth/4 - width/2 + GameProperties.GameScreenWidth/2;
+				break;
 		}
 	}
 	
@@ -32,11 +36,11 @@ public abstract class TargetObject implements IRenderableObject {
 		// TODO Auto-generated method stub
 		if (!exist)
 			return;
-		if (y > ConfigurableOption.screenHeight) {
+		if (y > GameProperties.screenHeight) {
 			exist = false;
 			return;
 		} else {
-			y++;
+			y += 3;
 		}
 
 	}
@@ -44,8 +48,8 @@ public abstract class TargetObject implements IRenderableObject {
 	public void outOfReached(Drunkard player) {
 		if (!exist)
 			return;
-		if (this.y + this.height == ConfigurableOption.screenHeight) {
-			//AudioUtility.playSound("no");
+		if (this.y + this.height == GameProperties.screenHeight) {
+			AudioUtility.playSound("no");
 			exist = false;
 			player.setExist(false);
 			return;

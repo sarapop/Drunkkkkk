@@ -12,6 +12,7 @@ public class Liquor extends TargetObject implements IRenderableObject {
 		// TODO Auto-generated constructor stub
 		this.width = 57;
 		this.height = 90;
+		initializeX(this.width);
 	}
 
 	@Override
@@ -24,9 +25,9 @@ public class Liquor extends TargetObject implements IRenderableObject {
 		if (!exist)
 			return;
 		if (player.isSamePosition(this)) {
-			//AudioUtility.playSound("collect");
+			AudioUtility.playSound("collect");
 			exist = false;
-			player.increaseScore(10);
+			player.increaseScore(1);
 			return;
 		}
 	}

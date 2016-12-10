@@ -8,8 +8,7 @@ import javafx.scene.text.FontWeight;
 
 public class DrawingUtility {
 
-	protected static final Font standardFont = Font.font("Tahoma", FontWeight.BOLD, 30);
-	protected static final Font smallFont = Font.font("Tahoma", FontWeight.MEDIUM, 9);
+	protected static final Font font = Font.font("Tahoma", FontWeight.BOLD, 30);
 	protected static final Image bg = getImage("img/bg.png");
 	protected static final Image overbg = getImage("img/overbg.png");
 	protected static final Image startscreen = getImage("img/startscreen.jpg");
@@ -17,8 +16,6 @@ public class DrawingUtility {
 	protected static final Image liquor = getImage("img/liquor.png");
 	protected static final Image waste = getImage("img/waste.png");
 	protected static final Image resume = getImage("img/resume.png");
-	protected static final double transcluentWhite = 0.7;
-	protected static final double opaque = 1;
 
 	private static Image getImage(String directory) {
 		try {
@@ -51,19 +48,19 @@ public class DrawingUtility {
 		}
 	}
 
-	public static void drawStatusBar(GraphicsContext gc, int score, boolean pause) {
-		gc.setFont(standardFont);
+	public static void drawStatus(GraphicsContext gc, int score, boolean pause) {
+		gc.setFont(font);
 		gc.setFill(Color.WHITE);
-		gc.fillText("" + score, 10, 35);
+		gc.fillText("" + score, GameProperties.GameScreenWidth/8, font.getSize()*1.5);
 		if (pause) {
-			// gc.drawImage(resume, ConfigurableOption.screenWidth/4 -
-			// resume.getWidth()/2, ConfigurableOption.screenHeight/2 -
+			// gc.drawImage(resume, GameProperties.GameScreenWidth/2 -
+			// resume.getWidth()/2, GameProperties.screenHeight/2 -
 			// resume.getHeight()/2);
 		}
 	}
 
 	public static void drawScore(GraphicsContext gc, int score) {
-		gc.setFont(standardFont);
+		gc.setFont(font);
 		gc.setFill(Color.WHITE);
 		gc.fillText("" + score, 10, 35);
 	}

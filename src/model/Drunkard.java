@@ -1,14 +1,14 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
-import lib.ConfigurableOption;
+import lib.GameProperties;
 import lib.DrawingUtility;
 import lib.IRenderableObject;
 
 public class Drunkard implements IRenderableObject {
 
 	private int x;
-	private static final int y = ConfigurableOption.screenHeight - 175;
+	private static final int y = GameProperties.screenHeight - 175;
 	private int position = 0;
 	private int score = 0;
 	private boolean exist = true; 
@@ -22,8 +22,12 @@ public class Drunkard implements IRenderableObject {
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		DrawingUtility.drawStatusBar(gc, score, pause);
+		DrawingUtility.drawStatus(gc, score, pause);
 		DrawingUtility.drawObject(gc, this.x, Drunkard.y, "drunkard");
+		
+		if (!this.exist) {
+			DrawingUtility.drawScore(gc, this.getScore());
+		}
 	}
 
 	public int getScore() {
@@ -70,11 +74,9 @@ public class Drunkard implements IRenderableObject {
 	
 	public void setX(int position) {
 		switch (position) {
-			case (0) : this.x = ConfigurableOption.screenWidth/8 - 65/2;
+			case (0) : this.x = GameProperties.GameScreenWidth/4 - 65/2;
 				break;
-			case (1) : this.x = ConfigurableOption.screenWidth/8 - 65/2 + ConfigurableOption.screenWidth/4;
-				break;
-			default : this.x = ConfigurableOption.screenWidth/8 - 65/2;
+			case (1) : this.x = GameProperties.GameScreenWidth/4 - 65/2 + GameProperties.GameScreenWidth/2;
 				break;
 		}
 	}
