@@ -8,22 +8,26 @@ import lib.IRenderableObject;
 public class Drunkard implements IRenderableObject {
 
 	private int x;
-	private static final int y = GameProperties.screenHeight - 175;
-	private int position = 0;
+	private int width = 65;
+	private int height = 175;
+	private int y;
+	private int position;
 	private int score = 0;
 	private boolean exist = true; 
 	private boolean pause = false;
 	
-	public Drunkard() {
+	public Drunkard(int position) {
 		// TODO Auto-generated constructor stub
 		this.setX(position);
+		this.y = GameProperties.screenHeight - this.height;
+		this.setPosition(position);
 	}
 
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		DrawingUtility.drawStatus(gc, score, pause);
-		DrawingUtility.drawObject(gc, this.x, Drunkard.y, "drunkard");
+		DrawingUtility.drawStatus(gc, score, pause, this);
+		DrawingUtility.drawObject(gc, this.x, this.y, "drunkard");
 		
 		if (!this.exist) {
 			DrawingUtility.drawScore(gc, this.getScore());
@@ -49,7 +53,7 @@ public class Drunkard implements IRenderableObject {
 	}
 	
 	public boolean isSamePosition(TargetObject other) {
-		if (this.position == other.position && Drunkard.y <= other.y + other.height) {
+		if (this.position == other.position && this.y <= other.y + other.height) {
 			return true;
 		} else {
 			return false;
@@ -74,9 +78,13 @@ public class Drunkard implements IRenderableObject {
 	
 	public void setX(int position) {
 		switch (position) {
-			case (0) : this.x = GameProperties.GameScreenWidth/4 - 65/2;
+			case (0) : this.x = GameProperties.screenWidth/8 - this.width/2;
 				break;
-			case (1) : this.x = GameProperties.GameScreenWidth/4 - 65/2 + GameProperties.GameScreenWidth/2;
+			case (1) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/4;
+				break;
+			case (2) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/2;
+				break;
+			case (3) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/4 + GameProperties.screenWidth/2;
 				break;
 		}
 	}
@@ -89,5 +97,10 @@ public class Drunkard implements IRenderableObject {
 	public void setPause(boolean pause) {
 		// TODO Auto-generated method stub
 		this.pause = pause;
+	}
+	
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return width;
 	}
 }

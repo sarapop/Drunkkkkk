@@ -19,11 +19,15 @@ public abstract class TargetObject implements IRenderableObject {
 	}
 	
 	public void initializeX(int width) {
-		position = RandomUtility.random(0, 1);
+		position = RandomUtility.random(0, 3);
 		switch (position) {
-			case (0) : this.x = GameProperties.GameScreenWidth/4 - width/2;
+			case (0) : this.x = GameProperties.screenWidth/8 - this.width/2;
 				break;
-			case (1) : this.x = GameProperties.GameScreenWidth/4 - width/2 + GameProperties.GameScreenWidth/2;
+			case (1) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/4;
+				break;
+			case (2) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/2;
+				break;
+			case (3) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/4 + GameProperties.screenWidth/2;
 				break;
 		}
 	}

@@ -5,11 +5,12 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.Drunkard;
 
 public class DrawingUtility {
 
 	protected static final Font font = Font.font("Tahoma", FontWeight.BOLD, 30);
-	protected static final Image bg = getImage("img/bg.png");
+	protected static final Image bg = getImage("img/bg.jpg");
 	protected static final Image overbg = getImage("img/overbg.png");
 	protected static final Image startscreen = getImage("img/startscreen.jpg");
 	protected static final Image drunkard = getImage("img/drunkard.gif");
@@ -48,10 +49,15 @@ public class DrawingUtility {
 		}
 	}
 
-	public static void drawStatus(GraphicsContext gc, int score, boolean pause) {
+	public static void drawStatus(GraphicsContext gc, int score, boolean pause, Drunkard drunkard) {
 		gc.setFont(font);
 		gc.setFill(Color.WHITE);
-		gc.fillText("" + score, GameProperties.GameScreenWidth/8, font.getSize()*1.5);
+		if (drunkard.getPosition() == 0 || drunkard.getPosition() == 1) {
+			gc.fillText("" + score, GameProperties.screenWidth/8, font.getSize()*1.5);
+		} else if (drunkard.getPosition() == 2 || drunkard.getPosition() == 3) {
+			gc.fillText("" + score, GameProperties.screenWidth/8 - drunkard.getWidth()/2 + GameProperties.screenWidth/4 + GameProperties.screenWidth/2, font.getSize()*1.5);
+		}
+		
 		if (pause) {
 			// gc.drawImage(resume, GameProperties.GameScreenWidth/2 -
 			// resume.getWidth()/2, GameProperties.screenHeight/2 -

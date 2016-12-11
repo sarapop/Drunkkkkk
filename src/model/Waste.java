@@ -6,7 +6,7 @@ import lib.DrawingUtility;
 import lib.IRenderableObject;
 
 public class Waste extends TargetObject implements IRenderableObject {
-
+	
 	public Waste() {
 		super();
 		// TODO Auto-generated constructor stub
