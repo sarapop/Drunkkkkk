@@ -3,17 +3,17 @@ package lib;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IRenderableHolder {
+public class RenderableHolder {
 	
-	private static final IRenderableHolder instance = new IRenderableHolder();
+	private static final RenderableHolder instance = new RenderableHolder();
 	
 	private List<IRenderableObject> entities;
 	
-	public IRenderableHolder() {
+	public RenderableHolder() {
 		entities = new ArrayList<IRenderableObject>();
 	}
 	
-	public static IRenderableHolder getInstance() {
+	public static RenderableHolder getInstance() {
 		return instance;
 	}
 	

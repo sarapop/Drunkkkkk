@@ -4,7 +4,7 @@ import javafx.animation.AnimationTimer;
 import logic.MainLogic;
 import main.Main;
 
-public class GameloopUtility {
+public class GameLoopUtility {
 	
 	public static AnimationTimer animationTimer;
 
@@ -21,7 +21,7 @@ public class GameloopUtility {
 					 InputUtility.postUpdate();
 				 } catch (Exception e) {
 					 e.printStackTrace();
-					 GameloopUtility.animationTimer.stop();
+					 GameLoopUtility.animationTimer.stop();
 				 }
 		 	}
 		 };

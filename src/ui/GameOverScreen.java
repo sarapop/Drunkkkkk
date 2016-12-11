@@ -20,7 +20,7 @@ private Canvas canvas;
 		this.getChildren().add(this.canvas);
 		this.paintComponenet();   
 		Button button = new Button();
-        button.setStyle("-fx-background-image: url('img/startbutton.png')");
+        button.setStyle("-fx-background-image: url('img/restartbutton.png')");
         button.setPrefSize(133, 63);
         
 
@@ -33,8 +33,8 @@ private Canvas canvas;
 				Main.instance.changeSceneTo("startScene");
 			}
 		});
-        button.setLayoutX(340);
-        button.setLayoutY(410);
+        button.setLayoutX(GameProperties.screenWidth/2 - 133/2);
+        button.setLayoutY(425);
 	}
 	
 	public void paintComponenet(){

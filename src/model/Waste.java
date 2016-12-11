@@ -6,12 +6,13 @@ import lib.DrawingUtility;
 import lib.IRenderableObject;
 
 public class Waste extends TargetObject implements IRenderableObject {
-
-	public Waste() {
+	
+	public Waste(int position) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.width = 78;
 		this.height = 25;
+		this.position = position;
 		initializeX(this.width);
 	}
 

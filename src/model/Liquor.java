@@ -7,11 +7,12 @@ import lib.IRenderableObject;
 
 public class Liquor extends TargetObject implements IRenderableObject {
 
-	public Liquor() {
+	public Liquor(int position) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.width = 57;
 		this.height = 90;
+		this.position = position;
 		initializeX(this.width);
 	}
 
@@ -27,8 +28,9 @@ public class Liquor extends TargetObject implements IRenderableObject {
 		if (player.isSamePosition(this)) {
 			AudioUtility.playSound("collect");
 			exist = false;
-			player.increaseScore(1);
+			TotalScore.instance.increaseTotalScore(1);
 			return;
 		}
 	}
+
 }

@@ -7,9 +7,10 @@ import javafx.stage.Stage;
 import ui.GameOverScreen;
 import ui.GameScreen;
 import ui.StartScreen;
+import ui.TutorialScreen;
 import javafx.stage.WindowEvent;
 import lib.AudioUtility;
-import lib.GameloopUtility;
+import lib.GameLoopUtility;
 import logic.MainLogic;
 import javafx.event.EventHandler;
 
@@ -18,10 +19,12 @@ public class Main extends Application {
 	public static Main instance;
 	private Stage primaryStage;
 	private Scene startScene;
+	private Scene tutorialScene;
 	private Scene overScene;
 	private Scene gameScene;
 	private GameScreen gameScreen;
 	private GameOverScreen overScreen;
+	private TutorialScreen tutorialScreen;
 	private StartScreen startScreen;
 	private MainLogic gameLogic;
 	
@@ -31,7 +34,7 @@ public class Main extends Application {
 		instance = this;
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Let's Get Drunk");
-		//this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("img/icon.png").toString()));
+		this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("img/icon.png").toString()));
 		this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 
 			@Override
@@ -46,10 +49,16 @@ public class Main extends Application {
 		
 		this.startScreen = new StartScreen();
 		this.startScene = new Scene(startScreen);
+		
+		this.tutorialScreen = new TutorialScreen();
+		this.tutorialScene = new Scene(tutorialScreen);
+		
 		this.gameScreen = new GameScreen(gameLogic);
 		this.gameScene = new Scene(gameScreen);
+		
 		this.overScreen = new GameOverScreen();
 		this.overScene = new Scene(overScreen);
+		
 		gameScreen.requestFocusForCanvas();
 		this.primaryStage.setScene(this.startScene);
 		this.resizeStage();
@@ -65,7 +74,7 @@ public class Main extends Application {
 	public synchronized void changeSceneTo(String scene) {
 		if (scene == "gameScene") {
 			this.gameLogic.onStart();
-			GameloopUtility.runGameLoop(gameLogic);
+			GameLoopUtility.runGameLoop(gameLogic);
 			this.primaryStage.setScene(gameScene);
 			AudioUtility.stopSound("start");
 			AudioUtility.playSound("game");
@@ -76,6 +85,8 @@ public class Main extends Application {
 		} else if (scene == "startScene") {
 			this.primaryStage.setScene(startScene);
 			AudioUtility.playSound("start");
+		} else if (scene == "tutorialScene") {
+			this.primaryStage.setScene(tutorialScene);
 		}
 	}
 	

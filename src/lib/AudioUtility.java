@@ -29,6 +29,8 @@ public class AudioUtility {
 		sound_move = new AudioClip(loader.getResource(move).toString());
 		music_start = new AudioClip(loader.getResource(start).toString());
 		music_game = new AudioClip(loader.getResource(game).toString());
+		music_start.setCycleCount(AudioClip.INDEFINITE);
+		music_game.setCycleCount(AudioClip.INDEFINITE);
 	}
 
 	public static void playSound(String identifier) {

@@ -5,8 +5,8 @@ import java.util.List;
 import javafx.scene.input.KeyCode;
 import lib.AudioUtility;
 import lib.GameProperties;
-import lib.GameloopUtility;
-import lib.IRenderableHolder;
+import lib.GameLoopUtility;
+import lib.RenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
 import lib.RandomUtility;
@@ -18,16 +18,22 @@ import model.Liquor;
 
 public class MainLogic {
 
-	private Drunkard player;
-	private List<TargetObject> onScreenObject = new ArrayList<TargetObject>();
+	private Drunkard player1;
+	private Drunkard player2;
+	private List<TargetObject> onScreenObject1 = new ArrayList<TargetObject>();
+	private List<TargetObject> onScreenObject2 = new ArrayList<TargetObject>();
 	private boolean game_end;
 	private boolean readyToRender;
-	private int nextObjectCreationDelay;
+	private int nextObjectCreationDelay1;
+	private int nextObjectCreationDelay2;
 
 	public synchronized void onStart() {
 		// TODO Auto-generated method stub
-		player = new Drunkard();
-		nextObjectCreationDelay = RandomUtility.random(GameProperties.objectCreationMinDelay,
+		player1 = new Drunkard(0);
+		player2 = new Drunkard(2);
+		nextObjectCreationDelay1 = RandomUtility.random(GameProperties.objectCreationMinDelay,
+				GameProperties.objectCreationMaxDelay);
+		nextObjectCreationDelay2 = RandomUtility.random(GameProperties.objectCreationMinDelay,
 				GameProperties.objectCreationMaxDelay);
 		game_end = false;
 		readyToRender = true;
@@ -37,97 +43,166 @@ public class MainLogic {
 		// TODO Auto-generated method stub
 		if (game_end) {
 			Main.instance.changeSceneTo("overScene");
-			GameloopUtility.animationTimer.stop();
+			GameLoopUtility.animationTimer.stop();
 		}
 
-		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.ENTER);
+		boolean triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
 		if (triggerKey) {
-			player.setPause(!player.isPause());
+			player1.setPause(!player1.isPause());
+			player2.setPause(!player2.isPause());
 		}
-		if (player.isPause()) {
+		
+		if (player1.isPause() || player2.isPause()) {
 			return;
 		}
 
-		if (!player.exist()) {
+		if (!player1.exist() || !player2.exist()) {
 			game_end = true;
 			return;
 		}
 
 		createTarget();
 
-		triggerKey = InputUtility.getKeyTriggered(KeyCode.SPACE);
-		if (triggerKey) {
-			if (player.getPosition() == 0) {
-				player.setPosition(1);
-			} else if (player.getPosition() == 1) {
-				player.setPosition(0);
+		boolean triggerKey1 = InputUtility.getKeyTriggered(KeyCode.F);
+		if (triggerKey1) {
+			if (player1.getPosition() == 0) {
+				player1.setPosition(1);
+			} else if (player1.getPosition() == 1) {
+				player1.setPosition(0);
 			}
 
-			player.setX(player.getPosition());
+			player1.setX(player1.getPosition());
 			AudioUtility.playSound("move");
 		}
 
-		TargetObject target = null;
-		target = getObject();
-		if (target instanceof Liquor) {
-			((Liquor) target).collect(player);
-		} else if (target instanceof Waste) {
-			((Waste) target).crash(player);
+		boolean triggerKey2 = InputUtility.getKeyTriggered(KeyCode.J);
+		if (triggerKey2) {
+			if (player2.getPosition() == 2) {
+				player2.setPosition(3);
+			} else if (player2.getPosition() == 3) {
+				player2.setPosition(2);
+			}
+
+			player2.setX(player2.getPosition());
+			AudioUtility.playSound("move");
 		}
 
-		for (int i = onScreenObject.size() - 1; i >= 0; i--) {
-			if (!onScreenObject.get(i).exist()) {
-				onScreenObject.remove(i);
+		TargetObject target1 = null;
+		target1 = getObject1();
+		if (target1 instanceof Liquor) {
+			((Liquor) target1).collect(player1);
+		} else if (target1 instanceof Waste) {
+			((Waste) target1).crash(player1);
+		}
+		
+		TargetObject target2 = null;
+		target2 = getObject2();
+		if (target2 instanceof Liquor) {
+			((Liquor) target2).collect(player2);
+		} else if (target2 instanceof Waste) {
+			((Waste) target2).crash(player2);
+		}
+
+		for (int i = onScreenObject1.size() - 1; i >= 0; i--) {
+			if (!onScreenObject1.get(i).exist()) {
+				onScreenObject1.remove(i);
+			}
+		}
+		
+		for (int i = onScreenObject2.size() - 1; i >= 0; i--) {
+			if (!onScreenObject2.get(i).exist()) {
+				onScreenObject2.remove(i);
 			}
 		}
 
-		for (TargetObject obj : onScreenObject) {
+		for (TargetObject obj : onScreenObject1) {
 			obj.move();
 			if (obj instanceof Liquor) {
-				obj.outOfReached(player);
+				obj.outOfReached(player1);
+			}
+		}
+		
+		for (TargetObject obj : onScreenObject2) {
+			obj.move();
+			if (obj instanceof Liquor) {
+				obj.outOfReached(player2);
 			}
 		}
 
 	}
 
-	private TargetObject getObject() {
-		TargetObject obj = null;
-		for (TargetObject target : onScreenObject) {
-			if (player.isSamePosition(target)) {
-				obj = target;
+	private TargetObject getObject1() {
+		TargetObject obj1 = null;
+		for (TargetObject target : onScreenObject1) {
+			if (player1.isSamePosition(target)) {
+				obj1 = target;
 			}
-
 		}
-		return obj;
+		
+		return obj1;
+	}
+	
+	private TargetObject getObject2() {
+		TargetObject obj2 = null;
+		for (TargetObject target : onScreenObject2) {
+			if (player2.isSamePosition(target)) {
+				obj2 = target;
+			}
+		}
+
+		return obj2;
 	}
 
 	public synchronized void onExit() {
 		// TODO Auto-generated method stub
-		onScreenObject.clear();
+		onScreenObject1.clear();
+		onScreenObject2.clear();
 		readyToRender = false;
 	}
 
 	private void createTarget() {
-		if (nextObjectCreationDelay > 0) {
-			nextObjectCreationDelay -= 1;
+		if (nextObjectCreationDelay1 > 0) {
+			nextObjectCreationDelay1 -= 1;
 		} else {
-			nextObjectCreationDelay = RandomUtility.random(GameProperties.objectCreationMinDelay,
+			nextObjectCreationDelay1 = RandomUtility.random(GameProperties.objectCreationMinDelay,
 					GameProperties.objectCreationMaxDelay);
-			int targetType = RandomUtility.random(0, 1);
-			if (targetType == 0) {
-				onScreenObject.add(new Liquor());
-			} else
-				onScreenObject.add(new Waste());
+			int targetType1 = RandomUtility.random(0, 1);
+			int targetPosition1 = RandomUtility.random(0, 1);
+
+			if (targetType1 == 0) {
+				onScreenObject1.add(new Liquor(targetPosition1));
+			} else {
+				onScreenObject1.add(new Waste(targetPosition1));
+			}
+		}
+		
+		if (nextObjectCreationDelay2 > 0) {
+			nextObjectCreationDelay2 -= 1;
+		} else {
+			nextObjectCreationDelay2 = RandomUtility.random(GameProperties.objectCreationMinDelay,
+					GameProperties.objectCreationMaxDelay);
+			int targetType2 = RandomUtility.random(0, 1);
+			int targetPosition2 = RandomUtility.random(2, 3);
+
+			if (targetType2 == 0) {
+				onScreenObject2.add(new Liquor(targetPosition2));
+			} else {
+				onScreenObject2.add(new Waste(targetPosition2));
+			}
 		}
 	}
 
 	public synchronized void setIRenderableHolderList() {
-		IRenderableHolder.getInstance().getEntities().clear();
+		RenderableHolder.getInstance().getEntities().clear();
 		if (readyToRender) {
-			for (TargetObject object : onScreenObject) {
-				IRenderableHolder.getInstance().add((IRenderableObject) object);
+			for (TargetObject object : onScreenObject1) {
+				RenderableHolder.getInstance().add((IRenderableObject) object);
 			}
-			IRenderableHolder.getInstance().add(player);
+			for (TargetObject object : onScreenObject2) {
+				RenderableHolder.getInstance().add((IRenderableObject) object);
+			}
+			RenderableHolder.getInstance().add(player1);
+			RenderableHolder.getInstance().add(player2);
 		}
 	}
 

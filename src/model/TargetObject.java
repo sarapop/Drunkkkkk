@@ -3,7 +3,6 @@ package model;
 import lib.AudioUtility;
 import lib.GameProperties;
 import lib.IRenderableObject;
-import lib.RandomUtility;
 
 public abstract class TargetObject implements IRenderableObject {
 
@@ -19,17 +18,24 @@ public abstract class TargetObject implements IRenderableObject {
 	}
 	
 	public void initializeX(int width) {
-		position = RandomUtility.random(0, 1);
-		switch (position) {
-			case (0) : this.x = GameProperties.GameScreenWidth/4 - width/2;
+		switch (this.position) {
+			case (0) : this.x = GameProperties.screenWidth/8 - this.width/2;
 				break;
-			case (1) : this.x = GameProperties.GameScreenWidth/4 - width/2 + GameProperties.GameScreenWidth/2;
+			case (1) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/4;
+				break;
+			case (2) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/2;
+				break;
+			case (3) : this.x = GameProperties.screenWidth/8 - this.width/2 + GameProperties.screenWidth/4 + GameProperties.screenWidth/2;
 				break;
 		}
 	}
 	
 	public int getPosition() {
 		return position;
+	}
+	
+	public void setPosition(int position) {
+		this.position = position;
 	}
 
 	public void move() {
@@ -42,7 +48,6 @@ public abstract class TargetObject implements IRenderableObject {
 		} else {
 			y += 3;
 		}
-
 	}
 	
 	public void outOfReached(Drunkard player) {

@@ -6,8 +6,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import lib.GameProperties;
 import lib.DrawingUtility;
@@ -34,17 +34,18 @@ public class StartScreen extends Pane {
 			@Override
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
-				Main.instance.changeSceneTo("gameScene");;
+				Main.instance.changeSceneTo("tutorialScene");;
 			}
 		});
-        button.setLayoutX(340);
-        button.setLayoutY(410);
+        button.setLayoutX(GameProperties.screenWidth/2 - 133/2);
+        button.setLayoutY(425);
         
-        Text owner = new Text("created and developed by PoP & McDonan");
-        owner.setFont(Font.font("Tahoma", FontWeight.MEDIUM, 10));
-        owner.setLayoutX(300);
-        owner.setLayoutY(525);
-        this.getChildren().add(owner);
+        Text developer = new Text("developed by PoP and McDonan");
+        developer.setFont(Font.loadFont("file:res/font.ttf", 10));
+        developer.setFill(Color.WHITE);
+        developer.setLayoutX(GameProperties.screenWidth/2 - 90);
+        developer.setLayoutY(525);
+        this.getChildren().add(developer);
 	}
 
 	public void applyResize() {
