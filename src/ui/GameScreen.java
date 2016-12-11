@@ -7,7 +7,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import lib.GameProperties;
 import lib.DrawingUtility;
-import lib.IRenderableHolder;
+import lib.RenderableHolder;
 import lib.IRenderableObject;
 import lib.InputUtility;
 import logic.MainLogic;
@@ -18,7 +18,7 @@ public class GameScreen extends StackPane{
 	
 	public GameScreen(MainLogic mainLogic){
 		super();
-		this.canvas = new Canvas(GameProperties.GameScreenWidth, GameProperties.screenHeight);
+		this.canvas = new Canvas(GameProperties.screenWidth, GameProperties.screenHeight);
 		this.mainLogic = mainLogic;
 		this.getChildren().add(this.canvas);
 		this.paintComponenet();
@@ -30,7 +30,7 @@ public class GameScreen extends StackPane{
 		
 		GraphicsContext gc = this.canvas.getGraphicsContext2D();
 		DrawingUtility.drawObject(gc, 0, 0, "bg");
-		for(IRenderableObject renderable : IRenderableHolder.getInstance().getEntities()){
+		for(IRenderableObject renderable : RenderableHolder.getInstance().getEntities()){
 			renderable.render(gc);
 		}
 	}
@@ -40,7 +40,7 @@ public class GameScreen extends StackPane{
 	}
 	
 	public void applyResize(){
-		this.canvas.setWidth(GameProperties.GameScreenWidth);
+		this.canvas.setWidth(GameProperties.screenWidth);
 		this.canvas.setHeight(GameProperties.screenHeight);
 	}
 

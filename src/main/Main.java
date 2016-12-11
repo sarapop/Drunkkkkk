@@ -9,7 +9,7 @@ import ui.GameScreen;
 import ui.StartScreen;
 import javafx.stage.WindowEvent;
 import lib.AudioUtility;
-import lib.GameloopUtility;
+import lib.GameLoopUtility;
 import logic.MainLogic;
 import javafx.event.EventHandler;
 
@@ -65,7 +65,7 @@ public class Main extends Application {
 	public synchronized void changeSceneTo(String scene) {
 		if (scene == "gameScene") {
 			this.gameLogic.onStart();
-			GameloopUtility.runGameLoop(gameLogic);
+			GameLoopUtility.runGameLoop(gameLogic);
 			this.primaryStage.setScene(gameScene);
 			AudioUtility.stopSound("start");
 			AudioUtility.playSound("game");
